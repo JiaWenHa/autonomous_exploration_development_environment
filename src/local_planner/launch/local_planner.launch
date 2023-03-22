@@ -1,6 +1,6 @@
 <launch>
 
-  <arg name="sensorOffsetX" default="0"/>
+  <arg name="sensorOffsetX" default="0.2"/>
   <arg name="sensorOffsetY" default="0"/>
   <arg name="cameraOffsetZ" default="0"/>
   <arg name="twoWayDrive" default="true"/>
@@ -15,7 +15,7 @@
   <node pkg="local_planner" type="localPlanner" name="localPlanner" output="screen" required="true">
     <param name="pathFolder" type="string" value="$(find local_planner)/paths" />
     <param name="vehicleLength" type="double" value="1.0" />
-    <param name="vehicleWidth" type="double" value="0.7" />
+    <param name="vehicleWidth" type="double" value="1.0" />
     <param name="sensorOffsetX" value="$(arg sensorOffsetX)" />
     <param name="sensorOffsetY" value="$(arg sensorOffsetY)" />
     <param name="twoWayDrive" value="$(arg twoWayDrive)" />
@@ -31,8 +31,8 @@
     <param name="costScore" type="double" value="0.02" />
     <param name="useCost" type="bool" value="false" />
     <param name="pointPerPathThre" type="int" value="2" />
-    <param name="minRelZ" type="double" value="-0.20" />
-    <param name="maxRelZ" type="double" value="0.50" />
+    <param name="minRelZ" type="double" value="-0.25" />
+    <param name="maxRelZ" type="double" value="0.40" />
     <param name="maxSpeed" value="$(arg maxSpeed)" />
     <param name="dirWeight" type="double" value="0.02" />
     <param name="dirThre" type="double" value="90.0" />
@@ -61,11 +61,11 @@
     <param name="pubSkipNum" type="int" value="1" />
     <param name="twoWayDrive" value="$(arg twoWayDrive)" />
     <param name="lookAheadDis" type="double" value="0.5" />
-    <param name="yawRateGain" type="double" value="7.5" />
-    <param name="stopYawRateGain" type="double" value="7.5" />
+    <param name="yawRateGain" type="double" value="5.5" />
+    <param name="stopYawRateGain" type="double" value="5.5" />
     <param name="maxYawRate" type="double" value="90.0" />
     <param name="maxSpeed" value="$(arg maxSpeed)" />
-    <param name="maxAccel" type="double" value="2.0" />
+    <param name="maxAccel" type="double" value="1.5" />
     <param name="switchTimeThre" type="double" value="1.0" />
     <param name="dirDiffThre" type="double" value="0.1" />
     <param name="stopDisThre" type="double" value="0.2" />
