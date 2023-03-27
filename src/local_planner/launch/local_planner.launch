@@ -34,13 +34,9 @@
     <param name="costScore" type="double" value="0.02" />
     <param name="useCost" type="bool" value="false" />
     <param name="pointPerPathThre" type="int" value="2" />
-<<<<<<< HEAD
     <param name="minRelZ" type="double" value="-0.2" />
     <param name="maxRelZ" type="double" value="0.45" />
-=======
-    <param name="minRelZ" type="double" value="-0.20" />
-    <param name="maxRelZ" type="double" value="0.40" />
->>>>>>> 8b42454404a611ee3f89987fd14e0bb32f737abf
+
     <param name="maxSpeed" value="$(arg maxSpeed)" />
     <param name="dirWeight" type="double" value="0.02" />
     <param name="dirThre" type="double" value="90.0" />
