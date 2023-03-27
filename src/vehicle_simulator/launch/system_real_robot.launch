@@ -1,7 +1,7 @@
 <launch>
 
   <arg name="cameraOffsetZ" default="0"/>
-  <arg name="vehicleX" default="0"/>
+  <arg name="vehicleX" default="0.0"/>
   <arg name="vehicleY" default="0"/>
   <arg name="checkTerrainConn" default="false"/>
 
@@ -26,6 +26,6 @@
   <include file="$(find loam_interface)/launch/loam_interface.launch" />
   <include file="$(find fast_lio)/launch/mapping_velodyne.launch" />
 
-  <node launch-prefix="nice" pkg="rviz" type="rviz" name="rvizGA" args="-d $(find vehicle_simulator)/rviz/vehicle_simulator.rviz" respawn="true"/>
+  <!-- <node launch-prefix="nice" pkg="rviz" type="rviz" name="rvizGA" args="-d $(find vehicle_simulator)/rviz/vehicle_simulator.rviz" respawn="true"/> -->
 
 </launch>
