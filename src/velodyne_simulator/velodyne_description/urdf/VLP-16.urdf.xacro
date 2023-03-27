@@ -36,7 +36,7 @@
     </link>
 
     <joint name="${name}_base_scan_joint" type="fixed" >
-      <origin xyz="0 0 0.0377" rpy="0 0 0" />
+      <origin xyz="0.0 0 0.0377" rpy="0 0 0" />
       <parent link="${name}_base_link" />
       <child link="${name}"/>
     </joint>

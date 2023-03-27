@@ -54,6 +54,7 @@ double maxRelZ = 0.2;
 double disRatioZ = 0.2;
 
 // terrain voxel parameters
+// TODO： terrainVoxelSize是什么？
 float terrainVoxelSize = 1.0;
 int terrainVoxelShiftX = 0;
 int terrainVoxelShiftY = 0;
@@ -101,6 +102,7 @@ float sinVehicleRoll = 0, cosVehicleRoll = 0;
 float sinVehiclePitch = 0, cosVehiclePitch = 0;
 float sinVehicleYaw = 0, cosVehicleYaw = 0;
 
+// 创建 VoxelGrid 体素滤波器
 pcl::VoxelGrid<pcl::PointXYZI> downSizeFilter;
 
 // state estimation callback function
@@ -221,18 +223,23 @@ int main(int argc, char **argv) {
   nhPrivate.getParam("maxRelZ", maxRelZ);
   nhPrivate.getParam("disRatioZ", disRatioZ);
 
+  // 获取odom
   ros::Subscriber subOdometry =
       nh.subscribe<nav_msgs::Odometry>("/state_estimation", 5, odometryHandler);
 
+  // 获取配准的的点云scan
   ros::Subscriber subLaserCloud = nh.subscribe<sensor_msgs::PointCloud2>(
       "/registered_scan", 5, laserCloudHandler);
 
+  // 订阅遥控器命令
   ros::Subscriber subJoystick =
       nh.subscribe<sensor_msgs::Joy>("/joy", 5, joystickHandler);
 
+  // TODO:map_clearing是用来干啥的？
   ros::Subscriber subClearing =
       nh.subscribe<std_msgs::Float32>("/map_clearing", 5, clearingHandler);
 
+  // 发布地形地图
   ros::Publisher pubLaserCloud =
       nh.advertise<sensor_msgs::PointCloud2>("/terrain_map", 2);
 
@@ -240,20 +247,25 @@ int main(int argc, char **argv) {
     terrainVoxelCloud[i].reset(new pcl::PointCloud<pcl::PointXYZI>());
   }
 
+  // 设置滤波时创建的体素的大小
   downSizeFilter.setLeafSize(scanVoxelSize, scanVoxelSize, scanVoxelSize);
 
-  ros::Rate rate(100);
+  ros::Rate rate(100); //指定休眠频率
   bool status = ros::ok();
   while (status) {
+    // 处理一轮回调。在循环体内处理所有回调。
     ros::spinOnce();
 
+    // 有新的点云
     if (newlaserCloud) {
       newlaserCloud = false;
 
       // terrain voxel roll over
+      // 地形体素的中心点滚动
       float terrainVoxelCenX = terrainVoxelSize * terrainVoxelShiftX;
       float terrainVoxelCenY = terrainVoxelSize * terrainVoxelShiftY;
 
+      // 当车体 x 方向离开地形体素范围
       while (vehicleX - terrainVoxelCenX < -terrainVoxelSize) {
         for (int indY = 0; indY < terrainVoxelWidth; indY++) {
           pcl::PointCloud<pcl::PointXYZI>::Ptr terrainVoxelCloudPtr =
@@ -321,6 +333,7 @@ int main(int argc, char **argv) {
       }
 
       // stack registered laser scans
+      // 堆叠配准激光扫描
       pcl::PointXYZI point;
       int laserCloudCropSize = laserCloudCrop->points.size();
       for (int i = 0; i < laserCloudCropSize; i++) {
@@ -651,7 +664,7 @@ int main(int argc, char **argv) {
     }
 
     status = ros::ok();
-    rate.sleep();
+    rate.sleep(); //休眠，休眠时间为 1/频率
   }
 
   return 0;

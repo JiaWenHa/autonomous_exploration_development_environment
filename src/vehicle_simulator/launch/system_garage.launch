@@ -8,8 +8,8 @@
   <arg name="terrainZ" default="0"/>
   <arg name="vehicleYaw" default="0"/>
   <!-- if use gazebo, set "true" -->
-  <!-- <arg name="gazebo_gui" default="false"/> -->
-  <arg name="gazebo_gui" default="true"/>
+  <arg name="gazebo_gui" default="false"/>
+  <!-- <arg name="gazebo_gui" default="true"/> -->
   <arg name="checkTerrainConn" default="true"/>
 
   <include file="$(find ps3joy)/launch/ps3.launch" />
@@ -36,6 +36,8 @@
     <arg name="vehicleYaw" value="$(arg vehicleYaw)"/>
     <arg name="gui" value="$(arg gazebo_gui)"/>
   </include>
+
+  <include file="$(find loam_interface)/launch/loam_interface.launch" />
 
   <include file="$(find sensor_scan_generation)/launch/sensor_scan_generation.launch" />
 

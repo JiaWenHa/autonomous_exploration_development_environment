@@ -11,6 +11,8 @@
     <arg name="cameraOffsetZ" value="$(arg cameraOffsetZ)"/>
     <arg name="goalX" value="$(arg vehicleX)"/>
     <arg name="goalY" value="$(arg vehicleY)"/>
+    <arg name="sensorOffsetX" default="0.0"/>
+    <arg name="sensorOffsetY" default="0"/>
   </include>
 
   <include file="$(find terrain_analysis)/launch/terrain_analysis.launch" />
@@ -22,6 +24,7 @@
   <include file="$(find sensor_scan_generation)/launch/sensor_scan_generation.launch" />
 
   <include file="$(find loam_interface)/launch/loam_interface.launch" />
+  <include file="$(find fast_lio)/launch/mapping_velodyne.launch" />
 
   <node launch-prefix="nice" pkg="rviz" type="rviz" name="rvizGA" args="-d $(find vehicle_simulator)/rviz/vehicle_simulator.rviz" respawn="true"/>
 
