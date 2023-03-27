@@ -1,5 +1,6 @@
 <launch>
 
+  <arg name="robot_real" default="false" />
   <arg name="sensorOffsetX" default="0.05"/>
   <arg name="sensorOffsetY" default="0"/>
   <arg name="cameraOffsetZ" default="0"/>
@@ -56,7 +57,7 @@
     <param name="goalClearRange" type="double" value="0.5" />
     <param name="goalX" type="double" value="$(arg goalX)" />
     <param name="goalY" type="double" value="$(arg goalY)" />
-    <remap from="/cmd_vel" to="/cmu_cmd_vel" />
+    <remap if="$(arg robot_real)" from="/cmd_vel" to="/cmu_cmd_vel"  />
   </node>
 
   <node pkg="local_planner" type="pathFollower" name="pathFollower" output="screen" required="true">
@@ -88,14 +89,17 @@
     <param name="autonomyMode" value="$(arg autonomyMode)" />
     <param name="autonomySpeed" value="$(arg autonomySpeed)" />
     <param name="joyToSpeedDelay" value="$(arg joyToSpeedDelay)" />
-    <remap from="/cmd_vel" to="/cmu_cmd_vel" />
+    <remap if="$(arg robot_real)" from="/cmd_vel" to="/cmu_cmd_vel"  />
   </node>
 
-  <node pkg="local_planner" type="remapTwist" name="remapTwist" required="true" />
 
-  <node pkg="tf" type="static_transform_publisher" name="vehicleTransPublisher" args="-$(arg sensorOffsetX) -$(arg sensorOffsetY) 0 0 0 0 /sensor /vehicle 1000"/>
+  <group if="$(arg robot_real)">
+  <node pkg="local_planner" type="remapTwist" name="remapTwist" required="true" />
   <!-- Modified -->
   <node pkg="tf" type="static_transform_publisher" name="velodyneTransPublisher" args="0 0 0 0 0 0 /sensor /velodyne 1000"/>
+  </group>
+
+  <node pkg="tf" type="static_transform_publisher" name="vehicleTransPublisher" args="-$(arg sensorOffsetX) -$(arg sensorOffsetY) 0 0 0 0 /sensor /vehicle 1000"/>
 
   <node pkg="tf" type="static_transform_publisher" name="sensorTransPublisher" args="0 0 $(arg cameraOffsetZ) -1.5707963 0 -1.5707963 /sensor /camera 1000"/>
 

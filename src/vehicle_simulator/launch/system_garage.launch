@@ -18,6 +18,7 @@
     <arg name="cameraOffsetZ" value="$(arg cameraOffsetZ)"/>
     <arg name="goalX" value="$(arg vehicleX)"/>
     <arg name="goalY" value="$(arg vehicleY)"/>
+    <arg name="robot_real" value="false"/>
   </include>
 
   <include file="$(find terrain_analysis)/launch/terrain_analysis.launch" />

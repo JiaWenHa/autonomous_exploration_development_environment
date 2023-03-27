@@ -11,14 +11,9 @@ Please use instructions on our [project page](https://www.cmu-exploration.com).
 2. 修改了机器人的尺寸、速度，以及激光雷达传感器的位置，并重新根据需要运行了生成路径的 matlab 脚本。
 
 实车测试使用方法：
-需要先能够运行 fast_lio2 程序。
 
 新开终端并输入以下命令：
 ```shell
-cd 
-cd ws_livox
-source ./devel/setup.bash
-roslaunch fast_lio mapping_velodyne.launch
 
 # 新开终端
 cd autonomous_exploration_development_environment

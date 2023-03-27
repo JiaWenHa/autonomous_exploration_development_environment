@@ -13,6 +13,7 @@
     <arg name="goalY" value="$(arg vehicleY)"/>
     <arg name="sensorOffsetX" default="0.0"/>
     <arg name="sensorOffsetY" default="0"/>
+    <arg name="robot_real" value="true"/>
   </include>
 
   <include file="$(find terrain_analysis)/launch/terrain_analysis.launch" />
