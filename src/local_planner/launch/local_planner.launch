@@ -1,6 +1,6 @@
 <launch>
 
-  <arg name="sensorOffsetX" default="0.2"/>
+  <arg name="sensorOffsetX" default="0.05"/>
   <arg name="sensorOffsetY" default="0"/>
   <arg name="cameraOffsetZ" default="0"/>
   <arg name="twoWayDrive" default="true"/>
@@ -24,14 +24,16 @@
     <param name="useTerrainAnalysis" type="bool" value="true" />
     <param name="checkObstacle" type="bool" value="true" />
     <param name="checkRotObstacle" type="bool" value="false" />
+    <!-- <param name="adjacentRange" type="double" value="2.25" /> -->
     <param name="adjacentRange" type="double" value="4.25" />
-    <param name="obstacleHeightThre" type="double" value="0.15" />
-    <param name="groundHeightThre" type="double" value="0.1" />
+
+    <param name="obstacleHeightThre" type="double" value="0.9" />
+    <param name="groundHeightThre" type="double" value="0.80" />
     <param name="costHeightThre" type="double" value="0.1" />
     <param name="costScore" type="double" value="0.02" />
     <param name="useCost" type="bool" value="false" />
     <param name="pointPerPathThre" type="int" value="2" />
-    <param name="minRelZ" type="double" value="-0.25" />
+    <param name="minRelZ" type="double" value="-0.20" />
     <param name="maxRelZ" type="double" value="0.40" />
     <param name="maxSpeed" value="$(arg maxSpeed)" />
     <param name="dirWeight" type="double" value="0.02" />
@@ -90,6 +92,8 @@
   <node pkg="local_planner" type="remapTwist" name="remapTwist" required="true" />
 
   <node pkg="tf" type="static_transform_publisher" name="vehicleTransPublisher" args="-$(arg sensorOffsetX) -$(arg sensorOffsetY) 0 0 0 0 /sensor /vehicle 1000"/>
+  <!-- Modified -->
+  <node pkg="tf" type="static_transform_publisher" name="velodyneTransPublisher" args="0 0 0 0 0 0 /sensor /velodyne 1000"/>
 
   <node pkg="tf" type="static_transform_publisher" name="sensorTransPublisher" args="0 0 $(arg cameraOffsetZ) -1.5707963 0 -1.5707963 /sensor /camera 1000"/>
 

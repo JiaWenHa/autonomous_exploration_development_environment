@@ -1,7 +1,7 @@
 <launch>
 
   <arg name="cameraOffsetZ" default="0"/>
-  <arg name="vehicleX" default="-0.2"/>
+  <arg name="vehicleX" default="0.0"/>
   <arg name="vehicleY" default="0"/>
   <arg name="checkTerrainConn" default="false"/>
 
